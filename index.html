@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    <title>留言板</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 最外层容器居中对齐 */
+        #container {
+            max-width: 800px;
+            margin: 0px auto;
+        }
+
+        /* 隐藏右下角版权标识 */
+        .vpower {
+            display: none;
+        }
+
+        /* 覆盖Valine控件样式 */
+        .v[data-class="v"] .vcards>.vcard {
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        #com.v[data-class="v"] .vwrap,
+        #com.v[data-class="v"] .vbtn,
+        #com.v[data-class="v"] .vcards .vcard .vh {
+            border-color: #e0e0e0;
+        }
+
+        #com.v[data-class="v"] .vwrap .vheader .vinput {
+            border-color: #d0d0d0;
+        }
+
+        #com.v[data-class="v"] .vcards .vcard .vh {
+            padding-bottom: 0;
+            border-bottom: unset;
+        }
+
+        #com.v[data-class="v"] .vcards .vcard .vquote {
+            border-left: unset;
+            border-radius: 10px;
+            background: rgba(247, 248, 250, 0.9);
+        }
+
+        .v[data-class="v"] .vcards .vcard .vh .vmeta .vat {
+            margin-right: 1em;
+        }
+
+        .v[data-class="v"] .vcards .vcard .vquote .vimg {
+            background: #fff;
+        }
+
+        /* 阅读量 */
+        .reading {
+            margin-top: 20px;
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+    <!-- 可以直接使用cdn -->
+    <!-- <script src='//unpkg.com/valine/dist/Valine.min.js'></script> -->
+    <!-- 也可以使用本地文件 -->
+    <script src="./valine.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <!-- 评论容器 -->
+        <div id="com"></div>
+        <!-- 阅读量 -->
+        <div class="reading">
+            <!-- id 将作为查询条件，默认是：window.location.pathname -->
+            <!-- 下方的 class name 是固定值，不能改变 -->
+            <span id="path" class="leancloud_visitors" data-flag-title="留言板">
+                <em class="post-meta-item-text">阅读量：</em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        </div>
+    </div>
+    <script>
+        // 设置阅读量查询条件
+        document.querySelector('#path').setAttribute('id', window.location.pathname)
+        // 初始化留言板
+        new Valine({
+            el: '#com',
+            appId: "Uycc9kGTrdbEATzhKnxlkWmo-gzGzoHsz", // 替换成你自己的
+            appKey: "aHINxMHuhAb4vQxJCuSYzLFe", // 替换成你自己的
+            placeholder: "快来给我留言吧...",
+            avatar: "robohash", // 默认头像
+            path: window.location.pathname, // 文章的路径
+            visitor: true, // 支持阅读量统计
+            recordIP: true, // 记录评论者IP
+            lang: "zh-cn", // 或 en
+            requiredFields: ['nick'], // 必填项
+            // meta: ["nick", "mail", "link"],
+        })
+    </script>
+</body>
+
+</html>
